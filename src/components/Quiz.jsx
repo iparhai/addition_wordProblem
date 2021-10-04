@@ -1,8 +1,8 @@
 import React from "react";
 import AnswerModal from "./AnswerModal";
 import { MathHelper } from "../utils";
-import bowl from "../assets/bowl.png"
-import rooster from "../assets/rooster.png"
+import paperBag from "../assets/paperBag.png"
+import grapes from "../assets/grapes.png"
 import './Quiz.css'
 import './Bubble.css'
 import sessionData from "../utils/sessionData.js"
@@ -23,7 +23,6 @@ class Quiz extends React.Component {
     modal: "",
     modalShowing: false,
     streaks: 0,
-    images: [bowl, rooster],
     problemTemplates: [],
     randomImage: "",
 
@@ -127,30 +126,34 @@ class Quiz extends React.Component {
   getProblem = () => {
     const newProblemSet = MathHelper.generateAdditionProblem(this.props.points);
     //const newProblemSet = MathHelper.generateSubtractionProblem(this.props.points);
-    const randomImage = this.getImage()
     this._isMounted &&
       this.setState({
         problem: newProblemSet.problem,
         firstNumber: newProblemSet.firstNumber,
         secondNumber: newProblemSet.secondNumber,
         symbol: newProblemSet.symbol,
-        randomImage: randomImage,
-        problemTemplates: ["Ali went to the shopping mart. He bought  " + newProblemSet.firstNumber + " bananas and " + newProblemSet.secondNumber + " mangoes. How many items did he buy altogether?",
-        "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?"
+        problemTemplates: [{
+          pt: "Ali went to the shopping mart. He bought  " + newProblemSet.firstNumber + " bananas and " + newProblemSet.secondNumber + " mangoes. How many items did he buy altogether?",
+          ptImage: paperBag
+        },
+        {
+          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
+          ptImage: grapes
+        }
         ]
       }, () => {
+        const randomTemplate = this.getRandomProblemTemplate()
         this.setState({
-          wordProblem: this.getWordProblem()
+          wordProblem: randomTemplate.pt,
+          randomImage : randomTemplate.ptImage
         });
       });
   };
-
-  getWordProblem = () => {
+  getRandomProblemTemplate = () => {
     return this.state.problemTemplates[MathHelper.getRandomInt(0, this.state.problemTemplates.length - 1)]
   }
-  getImage = () => {
-    return this.state.images[MathHelper.getRandomInt(0, this.state.images.length - 1)]
-  }
+
+ 
   render() {
     return (
       <section className="show-up">

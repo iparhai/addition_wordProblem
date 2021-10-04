@@ -12,7 +12,7 @@ const setData = (problem, wordProblem, attemptedAnswer, corectAnswer) => {
 const setDataTime = (timeTaken) => {
     data[index].timeTaken = timeTaken
     
-    sendData(data[index].problem, "c")
+    sendData(data[index].problem, "a")
     sendData(data[index].wordProblem, "w")
     index += 1
     //console.log(data)

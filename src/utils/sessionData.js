@@ -38,7 +38,7 @@ const sendData = () => {
     // alert("id =  " + id)
     //alert("enters ajax with "+ limit+","+cid+","+crcid+","+sid+","+dif+","+uid+","+id)
     $.ajax({
-        url: "https://nano-softs.com/adaptive/api.php?prb=" + data[index].problem + "&aa="+data[index].attemptedAnswer+"&ca="+data[index].corectAnswer+"&tt="+data[index].timeTaken+"&st="+st+"&tkn="+tkn+"&limit="+limit+"&cid="+cid+"&crcid="+crcid+"&sid="+sid+"&dif="+dif+"&uid="+uid+"&id="+id+"&type="+type+"&gt=a",
+        url: "https://nano-softs.com/adaptive/api.php?prb=" + data[index].problem + "&aa="+data[index].attemptedAnswer+"&ca="+data[index].corectAnswer+"&tt="+data[index].timeTaken+"&st="+st+"&tkn="+tkn+"&limit="+limit+"&cid="+cid+"&crcid="+crcid+"&sid="+sid+"&dif="+dif+"&uid="+uid+"&id="+id+"&type="+type+"&gt=w",
         type: "post",
         data: values,
         success: function (data) {

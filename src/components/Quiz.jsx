@@ -166,7 +166,7 @@ class Quiz extends React.Component {
 
             <div >
               {/* <Hints currentProblem={this.state.wordProblem}/> */}
-              <div class="thought " style={{ color: "white", width: "85%", marginLeft:"-10%" }} ref={this.wrapperRef} >
+              <div class="thought " style={{ color: "white", width: "85%", marginLeft:"-18%" }} ref={this.wrapperRef} >
                 <ReactTypingEffect
                   text={this.state.wordProblem}
                   // cursorRenderer={cursor => <h1>{cursor}</h1>}

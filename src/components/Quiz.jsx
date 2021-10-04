@@ -97,7 +97,8 @@ class Quiz extends React.Component {
   evaluateProblem = () => {
     const answer = MathHelper.solve(this.state.problem);
     const attemptedAnswer = this.state.answer
-    sessionData.setData(this.state.wordProblem, attemptedAnswer, answer)
+    sessionData.setData(this.state.firstNumber+"!"+this.state.secondNumber, this.state.wordProblem, attemptedAnswer, answer)
+    
     if (MathHelper.compare(this.state.problem, this.state.answer)) {
       return this.correctAnswer();
     }

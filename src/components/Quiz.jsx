@@ -8,6 +8,9 @@ import './Bubble.css'
 import sessionData from "../utils/sessionData.js"
 import Drop from "./drag.jsx";
 import ReactTypingEffect from 'react-typing-effect';
+import typingSound from '../assets/sounds/typing.mp3';
+
+
 
 class Quiz extends React.Component {
   _isMounted = false;
@@ -25,6 +28,7 @@ class Quiz extends React.Component {
     streaks: 0,
     problemTemplates: [],
     randomImage: "",
+    typingClick: new Audio(typingSound)
 
   };
 
@@ -97,8 +101,8 @@ class Quiz extends React.Component {
   evaluateProblem = () => {
     const answer = MathHelper.solve(this.state.problem);
     const attemptedAnswer = this.state.answer
-    sessionData.setData(this.state.firstNumber+"!"+this.state.secondNumber, this.state.wordProblem, attemptedAnswer, answer)
-    
+    sessionData.setData(this.state.firstNumber + "!" + this.state.secondNumber, this.state.wordProblem, attemptedAnswer, answer)
+
     if (MathHelper.compare(this.state.problem, this.state.answer)) {
       return this.correctAnswer();
     }
@@ -140,13 +144,45 @@ class Quiz extends React.Component {
         {
           pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
           ptImage: grapes
+        },
+        {
+          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
+          ptImage: grapes
+        },
+        {
+          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
+          ptImage: grapes
+        },
+        {
+          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
+          ptImage: grapes
+        },
+        {
+          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
+          ptImage: grapes
+        },
+        {
+          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
+          ptImage: grapes
+        },
+        {
+          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
+          ptImage: grapes
+        },
+        {
+          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
+          ptImage: grapes
+        },
+        {
+          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
+          ptImage: grapes
         }
         ]
       }, () => {
         const randomTemplate = this.getRandomProblemTemplate()
         this.setState({
           wordProblem: randomTemplate.pt,
-          randomImage : randomTemplate.ptImage
+          randomImage: randomTemplate.ptImage
         });
       });
   };
@@ -154,7 +190,7 @@ class Quiz extends React.Component {
     return this.state.problemTemplates[MathHelper.getRandomInt(0, this.state.problemTemplates.length - 1)]
   }
 
- 
+
   render() {
     return (
       <section className="show-up">
@@ -166,7 +202,7 @@ class Quiz extends React.Component {
 
             <div >
               {/* <Hints currentProblem={this.state.wordProblem}/> */}
-              <div class="thought " style={{ color: "white", width: "85%", marginLeft:"-18%" }} ref={this.wrapperRef} >
+              <div class="thought " style={{ color: "white", width: "85%", marginLeft: "-18%" }} ref={this.wrapperRef} >
                 <ReactTypingEffect
                   text={this.state.wordProblem}
                   // cursorRenderer={cursor => <h1>{cursor}</h1>}
@@ -176,15 +212,19 @@ class Quiz extends React.Component {
                   displayTextRenderer={(text, i) => {
                     return (
                       <h3>
+
                         {text.split('').map((char, i) => {
                           const key = `${i}`;
+                          if (i == 0) this.state.typingClick.play()
+                          if (char == '?') this.state.typingClick.pause()
                           return (
                             <span
                               key={key}
 
                             >{char}</span>
                           );
-                        })}
+                        })
+                        }
                       </h3>
                     );
                   }}

@@ -6,7 +6,6 @@ const dif = queryParams.get('dif');
 let index = 0
 let data = []
 const setData = (problem, wordProblem, attemptedAnswer, corectAnswer) => {
-    alert(problem)
     data.push({ index: index, problem: problem, wordProblem: wordProblem, attemptedAnswer: attemptedAnswer, corectAnswer: corectAnswer, timeTaken: null })
 }
 const setDataTime = (timeTaken) => {

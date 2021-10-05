@@ -34,17 +34,13 @@ class App extends Component {
     img: on,
     // sound: false,
     // curr: this.notPlayAudioWithVideo
-    sound: null
+    sound: new Audio(grocerySound)
   }
-   componentDidMount() {
+  componentDidMount() {
     console.log("i am playing")
-    this.setState({
-      sound : new Audio(grocerySound)
-    },()=>{
-       this.state.sound.loop = true
+
+    this.state.sound.loop = true
     this.state.sound.play()
-    })
-   
 
   }
 
@@ -55,16 +51,15 @@ class App extends Component {
     if (!this.state.sound.paused) {
       this.state.sound.pause()
       this.setState({
-        img : off
+        img: off
       })
     }
-    else if(this.state.sound.paused){
+    else if (this.state.sound.paused) {
       this.state.sound.play()
       this.setState({
-        img : on
+        img: on
       })
     }
-    
   }
 
   handleURL() {
@@ -81,12 +76,9 @@ class App extends Component {
         <header className="App-header">
           {sessionData.dif == "b" ? <img src={grocery} id="bg" alt="" /> : <img src={grocery} id="bg" alt="" />}
           {/* {this.state.curr} */}
-
-
           <div >
-            <img alt="mute" src={this.state.img} style={{position:"absolute", top:"30px", left:"30px", width: "100px", height:"100px"}} onClick={this.handleSoundClick} />
+            <img alt="mute" src={this.state.img} style={{ position: "fixed", top: "20px", left: "20px", maxWidth: "40px", width: "100%", zIndex:4}} onClick={this.handleSoundClick} />
           </div>
-
           {
             !this.props.isStarted ? (
               <Start startPressed={this.gameStart} />

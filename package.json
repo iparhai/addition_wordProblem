@@ -11,6 +11,7 @@
     "moment": "^2.29.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-drag-drop-container": "^6.1.1",
     "react-draggable": "^4.4.4",
     "react-konva": "^17.0.2-5",
     "react-redux": "^6.0.1",
@@ -21,7 +22,8 @@
     "redux": "^4.1.1",
     "redux-thunk": "^2.3.0",
     "use-image": "^1.0.8",
-    "use-sound": "^4.0.1"
+    "use-sound": "^4.0.1",
+    "video-react": "^0.14.1"
   },
   "scripts": {
     "start": "react-scripts start",

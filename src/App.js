@@ -6,6 +6,9 @@ import MathQuiz from './containers/MathQuiz';
 import './App.css';
 import backgroundGIF from './assets/gif/background.gif'
 import backgroundGIF2 from './assets/gif/background2.gif'
+import grocery from './assets/gif/grocery.gif'
+
+import { Player, ControlBar } from 'video-react';
 
 import Footer from './components/Footer';
 import sessionData from './utils/sessionData';
@@ -16,10 +19,36 @@ import {
   Link
 } from "react-router-dom";
 class App extends Component {
+  // notPlayAudioWithVideo =
+  //   <video autoPlay muted={true} loop id="bg" >
+  //     <source src={grocery} type="video/mp4" />
+  //   </video>
+
+  // PlayAudioWithVideo =
+  //   <video autoPlay muted={false} loop id="bg" >
+  //     <source src={grocery} type="video/mp4" />
+  //   </video>
+  // state = {
+    
+  //   // sound: false,
+  //   // curr: this.notPlayAudioWithVideo
+  //   sound : new Audio(grocerySound)
+  // }
+  //  componentDidMount() {
+  //   console.log("i am playing")
+  //   this.setState({
+  //     sound : new Audio(grocerySound)
+  //   },()=>{
+  //     this.state.sound.loop = true
+  //     this.state.sound.play()
+  //   })
+  // }
 
   gameStart = () => {
     this.props.onStartGame();
   }
+ 
+
   handleURL() {
     // const query = new URLSearchParams(this.props.location.search);
     // const token = query.get('id')
@@ -32,7 +61,13 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          {sessionData.dif == "b" ? <img src={backgroundGIF} id="bg" alt="" /> : <img src={backgroundGIF2} id="bg" alt="" />}
+          {sessionData.dif == "b" ? <img src={grocery} id="bg" alt="" /> : <img src={grocery} id="bg" alt="" />}
+          {/* {this.state.curr} */}
+
+
+          {/* <div >
+            <img alt="mute" src={this.state.img} onClick={this.handleSoundClick} />
+          </div> */}
 
           {
             !this.props.isStarted ? (

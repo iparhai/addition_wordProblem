@@ -1,16 +1,34 @@
 import React from "react";
 import PropTypes from 'prop-types'
-
+import grocerySound from '../assets/sounds/grocerySound.mp3'
+import on from '../assets/sound.png'
+import off from '../assets/mute.png'
 class Beginning extends React.Component {
   state = {
-    msg: 3
+    msg: 3,
+    img: on,
+    sound : new Audio(grocerySound)
   };
   intervalRef;
 
   componentDidMount() {
     this.intervalRef = setInterval(() => this.setState(this.handleCount), 1000);
   }
+  handleSoundClick = () => {
+    if (!this.state.sound.paused) {
+      this.state.sound.pause()
+      this.setState({
+        img: off
+      })
+    }
+    else {
+      this.state.sound.play()
+      this.setState({
+        img: on
+      })
+    }
 
+  }
   handleCount = prevState => {
     if (prevState.msg === 1) {
       return { msg: "GO" };

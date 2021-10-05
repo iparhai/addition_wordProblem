@@ -39,7 +39,7 @@ class Start extends React.Component {
                                         return (
                                             <span
                                                 key={key}
-                                                style={i % 2 === 0 ? { color: 'magenta' } : {}}
+                                                style={i % 2 === 0 ? { color: 'white' } : {}}
                                             >{char}</span>
                                         );
                                     })}

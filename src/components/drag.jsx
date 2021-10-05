@@ -14,6 +14,7 @@ import _9 from '../assets/sounds/_9.mp3';
 import _10 from '../assets/sounds/_10.mp3';
 import removeEffect from '../assets/sounds/removeItem.mp3'
 import useSound from 'use-sound';
+import { MathHelper } from '../utils';
 // import _6  from '../assets/sounds/_6.mp3';
 // import _6  from '../assets/sounds/_6.mp3';
 // import _6  from '../assets/sounds/_6.mp3';
@@ -34,7 +35,7 @@ const dragHeight = 0;
 
 const URLImage = ({ image, handleClick }) => {
     const [img] = useImage(image.src);
-    
+
     return (
         <Image
             image={img}
@@ -78,14 +79,14 @@ const Drop = (props) => {
             sounds[soundEffectIndex].play();
         }
     }
-    const toggleHover = (value) =>{
+    const toggleHover = (value) => {
         setHover(value)
     }
     var animate;
-    if(hover){
+    if (hover) {
         animate = "animate__animated animate__heartBeat"
     }
-    else{
+    else {
         animate = ""
     }
     return (
@@ -94,15 +95,29 @@ const Drop = (props) => {
             <div >
                 <img
                     alt="lion"
-                    
+
                     src={props.img}
                     draggable={props.count < 10 ? "true" : "false"}
                     onDragStart={(e) => {
                         dragUrl.current = e.target.src;
                     }}
+                    onClick={(e) => {
+                        // console.log(stageRef.current.getPointerPosition())
+                        dragUrl.current = e.target.src
+                        setImages(images.concat([
+                            {
+                                x: (Math.random() * (250-30)) + 30,
+                                y: (Math.random() * (150-30)) + 30,
+                                src: dragUrl.current,
+                            },
+                        ]),
+                        console.log(images))
+                        props.incCount(1)
+                        playSoundEffect(props.count)
+                    }}
                     className={"noselect draggableImage " + animate}
-                    onMouseEnter={()=>{toggleHover(true)}}
-                    onMouseLeave={()=>{toggleHover(false)}}
+                    onMouseEnter={() => { toggleHover(true) }}
+                    onMouseLeave={() => { toggleHover(false) }}
                 />
             </div>
             <br />
@@ -112,7 +127,7 @@ const Drop = (props) => {
                 onDrop={(e) => {
                     e.preventDefault();
                     // register event position
-                   
+
                     stageRef.current.setPointersPositions(e);
                     // add image
 

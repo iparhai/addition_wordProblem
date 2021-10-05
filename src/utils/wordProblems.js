@@ -14,7 +14,7 @@ import lemon from '../assets/lemon.png'
 import carrot from '../assets/carrot.png'
 import cherry from '../assets/cherry.png'
 import peach from '../assets/peach.png'
-import apple from '../assets/apple.png'
+import dragon_fruit from '../assets/dragon_fruit.png'
 
 const Names1 = ['Ahmed', 'Ali', 'Arham', 'Aryan', 'Awan', 'Awj', 'Harnail', 'Muhallil', 'Rohaan', 'Souma', 'Azeeb', 'Etizaaz', 'Ghazanfer', 'zawwar ', 'Areeb ']
 const Names2 = ['Shahrukh', 'Ismail', 'Taimoor ', 'Ashad', 'Faizan', 'Shariat', 'Aaniya', 'Minahil', 'Rauf', 'Fawwad', 'Shahida', 'Rabia', 'Areesha', 'Ayesha', 'Aneeq']
@@ -33,7 +33,7 @@ const objectNameAndImage = [
     { objName: "carrot", img: carrot },
     { objName: "cherry", img: cherry },
     { objName: "peach", img: peach },
-    { objName: "apple", img: apple },
+    { objName: "dragon_fruit", img: dragon_fruit },
 ]
 
 
@@ -46,7 +46,7 @@ const getRandomSentenceParams = () => {
     const firstName = Names1[index_1]
     const secondName = Names2[index_2]
     const objectName = objectNameAndImage[index_3].objName
-    const img = objectNameAndImage[index].img
+    const img = objectNameAndImage[index_3].img
     return {firstName, secondName, objectName, img}
 }
 

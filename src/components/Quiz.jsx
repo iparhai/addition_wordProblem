@@ -9,6 +9,7 @@ import sessionData from "../utils/sessionData.js"
 import Drop from "./drag.jsx";
 import ReactTypingEffect from 'react-typing-effect';
 import typingSound from '../assets/sounds/typing.mp3';
+import wordProblems from "../utils/wordProblems.js";
 
 
 
@@ -131,52 +132,19 @@ class Quiz extends React.Component {
   getProblem = () => {
     const newProblemSet = MathHelper.generateAdditionProblem(this.props.points);
     //const newProblemSet = MathHelper.generateSubtractionProblem(this.props.points);
+    const {firstName, secondName, objectName, img} = wordProblems.getRandomSentenceParams() 
+    console.log(img)
     this._isMounted &&
       this.setState({
         problem: newProblemSet.problem,
         firstNumber: newProblemSet.firstNumber,
         secondNumber: newProblemSet.secondNumber,
         symbol: newProblemSet.symbol,
-        problemTemplates: [{
-          pt: "Ali went to the shopping mart. He bought  " + newProblemSet.firstNumber + " bananas and " + newProblemSet.secondNumber + " mangoes. How many items did he buy altogether?",
-          ptImage: paperBag
-        },
-        {
-          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
-          ptImage: grapes
-        },
-        {
-          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
-          ptImage: grapes
-        },
-        {
-          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
-          ptImage: grapes
-        },
-        {
-          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
-          ptImage: grapes
-        },
-        {
-          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
-          ptImage: grapes
-        },
-        {
-          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
-          ptImage: grapes
-        },
-        {
-          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
-          ptImage: grapes
-        },
-        {
-          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
-          ptImage: grapes
-        },
-        {
-          pt: "Anya eats " + newProblemSet.firstNumber + " grapes while Zamia Eats  " + newProblemSet.secondNumber + " grapes. How many grapes did Zamia and Anya eat altogether?",
-          ptImage: grapes
-        }
+        problemTemplates: [
+          {
+            pt: firstName+" eats " + newProblemSet.firstNumber + " "+objectName+" while "+ secondName+ " Eats  " + newProblemSet.secondNumber+" "+objectName+". How many "+ objectName+" did "+firstName+" and "+secondName+" eat altogether?",
+            ptImage: img
+          },
         ]
       }, () => {
         const randomTemplate = this.getRandomProblemTemplate()

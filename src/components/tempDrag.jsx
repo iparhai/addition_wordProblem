@@ -2,8 +2,13 @@ import React from 'react';
 import { Stage, Layer, Image } from 'react-konva';
 import useImage from 'use-image';
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
+import useSound from 'use-sound';
+import removeEffect from '../assets/sounds/removeItem.mp3'
+import mango from '../assets/mango.png'
+import { useEffect } from 'react';
 
 import './drag.css'
+import { Container } from 'konva/lib/Container';
 
 
 
@@ -21,57 +26,116 @@ const URLImage = ({ image, handleClick }) => {
             offsetX={img ? 100 / 2 : 0}
             offsetY={img ? 90 / 2 : 0}
             onClick={handleClick}
+            onMouseDown={handleClick}
         />
     );
 };
 
-const Drop = (props) => {
+const TempDrop = (props) => {
     const dragUrl = React.useRef();
     const stageRef = React.useRef();
+    const container = React.useRef();
     const [images, setImages] = React.useState([]);
     const [playRemoveEffect] = useSound(removeEffect)
     const [hover, setHover] = React.useState(false)
+    const [stageWidth, setStageWidth] = React.useState(300)
+    const [stageHeight, setStageHeight] = React.useState(200)
 
+    const checkSize = () => {
+        const width = container.current.offsetWidth;
+        const height = container.current.offsetHeight;
 
-    const playSoundEffect = (soundEffectIndex) => {
-        console.log("i am at " + soundEffectIndex)
-        if (soundEffectIndex < sounds.length) {
-            sounds[soundEffectIndex].play();
+        setStageWidth(width)
+        setStageHeight(height)
+    };
+    // const checkDrag = (event) => {
+    //     if (event.targetTouches.length == 1) {
+    //         var touch = event.targetTouches[0];
+    //         // Place element where the finger is
+    //         dragThis.current.left = touch.pageX + 'px';
+    //         dragThis.current.top = touch.pageY + 'px';
+    //     }
+    // }
+    useEffect(() => {
+        checkSize();
+        window.addEventListener("resize", checkSize);
+        // dragThis.current.addEventListener('touchmove', checkDrag);
+
+        return () => {
+            window.removeEventListener("resize", checkSize)
+            // dragThis.current.removeEventListener("touchmove", checkDrag)
         }
-    }
+    }, [])
+
+
 
     return (
-        <div className="noselect parentDiv" >
+        <div className="noselect " >
+            <h1>adsfaf</h1>
             <br />
-            <DragDropContainer targetKey="me" >
-                <div >
+
+            <div className="dropBox"
+                ref={container}
+
+            >
+                <DropTarget targetKey="me"
+                    className="dropBox"
+                    onHit={() => {
+                        console.log(images)
+                        setImages(
+                            images.concat([
+                                {
+                                    x: Math.random() * (stageWidth - 90) + 50,
+                                    y: Math.random() * (stageHeight - 70) + 30,
+                                    src: mango,
+                                },
+                            ])
+                        );
+                    }}
+                >
+
+                    <Stage
+                        width={stageWidth}
+                        height={stageHeight}
+                        ref={stageRef}
+                    >
+
+                        <Layer>
+
+                            {images.map((image) => {
+                                return <URLImage image={image} handleClick={() => {
+                                    console.log("adf")
+                                    setImages(
+                                        images.filter(item => item !== image)
+                                    )
+
+                                    //props.decCount(1)
+                                }} />;
+                            })}
+                        </Layer>
+                    </Stage>
+
+                </DropTarget>
+                </div>
+                <DragDropContainer targetKey="me"
+                    onDrop={(e) => {
+                        console.log(e.dropData.name)
+                    }}
+                >
+
                     <img
                         alt="lion"
-                        src={props.img}
-                        className={"noselect draggableImage " + animate}
-                    />
-                </div>
-            </DragDropContainer>
+                        src={mango}
+                        className={"noselect draggableImage "}
 
-            <DropTarget targetKey="me" >
-                <Stage
-                    width={300}
-                    height={200}
-                    ref={stageRef}
-                >
-                    <Layer>
-                        {images.map((image) => {
-                            return <URLImage image={image} handleClick={() => {
-                                setImages(
-                                    images.filter(item => item !== image)
-                                )
-                               
-                                props.decCount(1)
-                            }} />;
-                        })}
-                    </Layer>
-                </Stage>
-            </DropTarget>
+                    />
+                </DragDropContainer>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+
 
             {/* <div >
                 <img
@@ -119,8 +183,8 @@ const Drop = (props) => {
             {/* <div>
                 <h1>{props.count}</h1>
             </div> */}
-        </div>
+        </div >
     );
 };
 
-export default Drop;
+export default TempDrop;

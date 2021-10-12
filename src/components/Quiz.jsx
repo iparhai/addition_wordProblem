@@ -29,7 +29,8 @@ class Quiz extends React.Component {
     streaks: 0,
     problemTemplates: [],
     randomImage: "",
-    typingClick: new Audio(typingSound)
+    typingClick: new Audio(typingSound),
+    enableDrop: false
 
   };
 
@@ -132,7 +133,7 @@ class Quiz extends React.Component {
   getProblem = () => {
     const newProblemSet = MathHelper.generateAdditionProblem(this.props.points);
     //const newProblemSet = MathHelper.generateSubtractionProblem(this.props.points);
-    const {firstName, secondName, objectName, img} = wordProblems.getRandomSentenceParams() 
+    const { firstName, secondName, objectName, img } = wordProblems.getRandomSentenceParams()
     console.log(img)
     this._isMounted &&
       this.setState({
@@ -142,7 +143,7 @@ class Quiz extends React.Component {
         symbol: newProblemSet.symbol,
         problemTemplates: [
           {
-            pt: firstName+" eats " + newProblemSet.firstNumber + " "+objectName+" while "+ secondName+ " Eats  " + newProblemSet.secondNumber+" "+objectName+". How many "+ objectName+" did "+firstName+" and "+secondName+" eat altogether?",
+            pt: firstName + " eats " + newProblemSet.firstNumber + " " + objectName + " while " + secondName + " Eats  " + newProblemSet.secondNumber + " " + objectName + ". How many " + objectName + " did " + firstName + " and " + secondName + " eat altogether?",
             ptImage: img
           },
         ]
@@ -158,6 +159,9 @@ class Quiz extends React.Component {
     return this.state.problemTemplates[MathHelper.getRandomInt(0, this.state.problemTemplates.length - 1)]
   }
 
+  setEnableDrop = () => {
+    this.setState({ enableDrop: this.state.enableDrop })
+  }
 
   render() {
     return (
@@ -184,11 +188,12 @@ class Quiz extends React.Component {
                         {text.split('').map((char, i) => {
                           const key = `${i}`;
                           if (i == 0) this.state.typingClick.play()
-                          if (char == '?') this.state.typingClick.pause()
+                          if (char == '?') {
+                            this.state.typingClick.pause()
+                          }
                           return (
-                            <span
+                            <span 
                               key={key}
-
                             >{char}</span>
                           );
                         })
@@ -196,6 +201,7 @@ class Quiz extends React.Component {
                       </h3>
                     );
                   }}
+                  
                 />
                 {/* <h4>{this.state.wordProblem}</h4> */}
               </div>

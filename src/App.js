@@ -11,6 +11,7 @@ import grocerySound from './assets/sounds/grocerySound.mp3'
 import on from './assets/sound.png'
 import off from './assets/mute.png'
 import { Player, ControlBar } from 'video-react';
+import TempDrop from './components/tempDrag';
 
 import Footer from './components/Footer';
 import sessionData from './utils/sessionData';
@@ -34,12 +35,17 @@ class App extends Component {
     img: on,
     // sound: false,
     // curr: this.notPlayAudioWithVideo
-    sound: new Audio(grocerySound)
+    sound: new Audio(grocerySound),
+    isAuth: false
   }
   componentDidMount() {
+    if (sessionData.authenticate()) {
+      this.setState({ isAuth: true })
+    }
     console.log("i am playing")
 
     this.state.sound.loop = true
+    this.state.sound.volume = 0.4
     this.state.sound.play()
 
   }
@@ -55,6 +61,7 @@ class App extends Component {
       })
     }
     else if (this.state.sound.paused) {
+      this.state.sound.volume = 0.4
       this.state.sound.play()
       this.setState({
         img: on
@@ -73,20 +80,32 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+
         <header className="App-header">
-          {sessionData.dif == "b" ? <img src={grocery} id="bg" alt="" /> : <img src={grocery} id="bg" alt="" />}
           {/* {this.state.curr} */}
-          <div >
-            <img alt="mute" src={this.state.img} style={{ position: "fixed", top: "20px", left: "20px", maxWidth: "40px", width: "100%", zIndex:4}} onClick={this.handleSoundClick} />
-          </div>
-          {
-            !this.props.isStarted ? (
-              <Start startPressed={this.gameStart} />
-            ) : (
-              <MathQuiz {...this.props} gameStart={this.gameStart} />
-            )
+
+
+          {this.state.isAuth ?
+            <div>
+              {sessionData.dif == "b" ? <img src={grocery} id="bg" alt="" /> : <img src={grocery} id="bg" alt="" />}
+              <div >
+                <img alt="mute" src={this.state.img} style={{ position: "fixed", top: "20px", left: "20px", maxWidth: "40px", width: "100%", zIndex: 4 }} onClick={this.handleSoundClick} />
+              </div>
+              {
+                !this.props.isStarted ? (
+                  <Start startPressed={this.gameStart} />
+                ) : (
+                  <MathQuiz {...this.props} gameStart={this.gameStart} />
+                )
+              }
+              {/* <TempDrop /> */}
+            </div>
+            :
+            <h1 style={{ color: "black" }}> Error 404 : URL not found!!! </h1>
           }
+
         </header>
+
         {/* <Footer></Footer> */}
       </div>
     );

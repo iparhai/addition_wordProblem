@@ -44,6 +44,7 @@ const URLImage = ({ image, handleClick }) => {
             offsetX={img ? 90 / 2 : 0}
             offsetY={img ? 70 / 2 : 0}
             onClick={handleClick}
+            onTouchStart={handleClick}
         />
     );
 };

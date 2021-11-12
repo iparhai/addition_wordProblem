@@ -7,12 +7,15 @@ import Lifes from '../components/Lifes'
 import Points from '../components/Points'
 import "./MathQuiz.css"
 import TableScore from '../components/TableScore';
+import grocerySound from '../assets/sounds/grocerySound.mp3'
 
 
 class MathQuiz extends React.Component {
   state = {
     isBeginningDone: false,
     lastPoints: 0,
+    sound: new Audio(grocerySound),
+    mute: false
   };
 
   retryGame = () => {
@@ -23,6 +26,23 @@ class MathQuiz extends React.Component {
   completeBeginning = () => {
     this.setState({ isBeginningDone: true });
   };
+  handleSoundClick = () => {
+    if (!this.state.sound.paused) {
+      this.state.sound.pause()
+      this.setState({
+        mute: true
+      })
+    }
+    else if (this.state.sound.paused) {
+      this.state.sound.play()
+      this.setState({
+        mute: false
+      })
+    }
+  }
+  componentDidMount() {
+    this.state.sound.play()
+  }
 
   render() {
     return !this.props.isFinished ? (
@@ -33,6 +53,9 @@ class MathQuiz extends React.Component {
           <div className="noselect ">
             {/* <img src={this.state.images.map()} alt="learning" /> */}
             <div className="App-header-bar">
+            <span onClick={this.handleSoundClick}>
+                {this.state.mute ? <i className="fas fa-volume-mute" /> : <i className="fa fa-volume-up " />}
+              </span>
               <Timmer {...this.props} />
               <Lifes {...this.props} />
               <Points {...this.props} />

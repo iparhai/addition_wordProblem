@@ -31,24 +31,26 @@ import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
 // import _6  from '../assets/sounds/_6.mp3';
 
 
-const URLImage = ({ image, handleClick }) => {
+
+const URLImage = ({ image, handleClick, imageRef , width, height}) => {
     const [img] = useImage(image.src);
+
+    console.log(imageRef)
     return (
         <Image
             image={img}
             x={image.x}
             y={image.y}
-            width={90}
-            height={70}
+            width={width}
+            height={height}
             // I will use offset to set origin to the center of the image
-            offsetX={img ? 90 / 2 : 0}
-            offsetY={img ? 70 / 2 : 0}
+            offsetX={img ? width / 2 : 0}
+            offsetY={img ? height / 2 : 0}
             onClick={handleClick}
             onTouchStart={handleClick}
         />
     );
 };
-
 const Drop = (props) => {
     const dragUrl = React.useRef();
     const stageRef = React.useRef();
@@ -59,6 +61,7 @@ const Drop = (props) => {
     const [stageWidth, setStageWidth] = React.useState(300)
     const [stageHeight, setStageHeight] = React.useState(200)
     const [dropS] = React.useState(new Audio(dropSound))
+    const targetImage = React.useRef();
 
     // const dragThis = React.useRef();
     const container = React.useRef();
@@ -119,14 +122,24 @@ const Drop = (props) => {
     }, [])
 
     return (
-        <div className="noselect parentDiv" >
+        <div className="noselect parentDiv" style={{ display: "flex" }}>
+            <div >
+                <button className="btn fourth answerButton">
+                    {props.count}
+                </button>
+                <br />
+                <button className="App-link fa fa-paper-plane" style={{
+                    background: "rgb(49 205 97)",
 
+                    border: "1px solid #057897",
+                    borderRadius: "0.6em",
+                }} onClick={props.evaluateProblem}></button>
+            </div>
             <div className="dropBox"
                 ref={container}
             >
                 <DropTarget targetKey="me"
                     onHit={() => {
-                        console.log(images)
                         setImages(
                             images.concat([
                                 {
@@ -136,58 +149,125 @@ const Drop = (props) => {
                                 },
                             ])
                         );
+                        playSoundEffect(props.count)
+                        props.incCount(1)
                     }}
                 >
-
                     <Stage
                         width={stageWidth}
                         height={stageHeight}
                         ref={stageRef}
                     >
-
                         <Layer>
-
                             {images.map((image) => {
                                 return <URLImage image={image} handleClick={() => {
                                     console.log("adf")
                                     setImages(
                                         images.filter(item => item !== image)
                                     )
-
-                                    //props.decCount(1)
-                                }} />;
+                                    playRemoveEffect()
+                                    props.decCount(1)
+                                }} width={targetImage.current.containerElem.offsetWidth} height={targetImage.current.containerElem.offsetHeight} />;
                             })}
                         </Layer>
                     </Stage>
-
                 </DropTarget>
             </div>
-            <DragDropContainer targetKey="me"
-                onDrop={(e) => {
-                    console.log(e.dropData.name)
-                }}
-            >
+            <div >
+                <DragDropContainer targetKey="me"
+                    onDragStart={() => {
+                        console.log(targetImage.current.containerElem.offsetHeight)
+                    }}
+                    onDrop={(e) => {
+                        // console.log(e.dropData.name)
+                    }}
+                    style={{
+                        border: "1px dashed white",
+                        borderRadius: "0.6em",
+                        padding: "15px"
+                    }}
+                    ref={e => targetImage.current = e}
 
-                <img
-                    alt="lion"
-                    src={props.img}
-                    className={"noselect draggableImage "}
+                >
+                    <img
+                        alt="lion"
+                        src={props.img}
+                        className={"noselect  questionImage"}
+                        style={{ display: "block" }}
 
-                />
-            </DragDropContainer>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-        </div>
+                    />
+
+                </DragDropContainer>
+                <br />
+                <br />
+            </div>
+        </div >
     );
 };
 
 export default Drop;
 
+// <div className="noselect parentDiv" style={{display : "flex"}} >
+// <div className="dropBox"
+//     ref={container}
+// >
+//     <DropTarget targetKey="me"
+//         onHit={() => {
+//             console.log(images)
+//             setImages(
+//                 images.concat([
+//                     {
+//                         x: Math.random() * (stageWidth - 90) + 50,
+//                         y: Math.random() * (stageHeight - 70) + 30,
+//                         src: props.img,
+//                     },
+//                 ])
+//             );
+//             playSoundEffect(props.count)
+//             props.incCount(1)
+//         }}
+//     >
+//         <Stage
+//             width={stageWidth}
+//             height={stageHeight}
+//             ref={stageRef}
+//         >
+
+//             <Layer>
+
+//                 {images.map((image) => {
+//                     return <URLImage image={image} handleClick={() => {
+//                         console.log("adf")
+//                         setImages(
+//                             images.filter(item => item !== image)
+//                         )
+//                         playRemoveEffect()
+//                         props.decCount(1)
+//                     }} />;
+//                 })}
+//             </Layer>
+//         </Stage>
+
+//     </DropTarget>
+// </div>
+// <DragDropContainer targetKey="me"
+//     onDrop={(e) => {
+//         console.log(e.dropData.name)
+//     }}
+// >
+//     <img
+//         alt="lion"
+//         src={props.img}
+//         className={"noselect draggableImage " + animate}
+//         onMouseEnter={() => { toggleHover(true) }}
+//         onMouseLeave={() => { toggleHover(false) }}
+//     />
+// </DragDropContainer>
+// <br />
 
 
+// </div>
+/////////////////////////////////////////////////////////////////////////////
 // <br />
 // <div
 //     onDrop={(e) => {

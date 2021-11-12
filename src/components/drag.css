@@ -1,26 +1,59 @@
 .noselect {
-    -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-       -khtml-user-select: none; /* Konqueror HTML */
-         -moz-user-select: none; /* Old versions of Firefox */
-          -ms-user-select: none; /* Internet Explorer/Edge */
-              user-select: none; /* Non-prefixed version, currently
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
+}
+
+.dropBox {
+  margin: auto;
+  width: 100%;
+  max-width: 300px;
+  max-height: 200px;
+  height: 100%;
+  border: 2px dashed white;
+}
+
+
+
+.parentDiv {
+  margin-top: 0vh
+}
+
+@media only screen and (max-width: 700px) {
+  .parentDiv {
+    margin-top: 0vh
   }
-  .dropBox{
+  .dropBox {
     margin: auto;
     width: 100%;
-    max-width:300px;
-    height: 20vh;
-    max-height: 200px;
+    max-width: 200px;
+    max-height: 100px;
+    height: 100%;
     border: 2px dashed white;
-    margin-top:-12vh
   }
-  .draggableImage{
-    height:11vh;
-    /* margin-bottom: 6vh; */
-    max-width:150px
+}
+
+@media only screen and (max-height: 600px) {
+  .parentDiv {
+    margin-top: 40vh
   }
-  .parentDiv{
-    margin-top:100%
+  .dropBox {
+    margin: auto;
+    width: 100%;
+    max-width: 200px;
+    max-height: 100px;
+    height: 100%;
+    border: 2px dashed white;
   }
+ 
+}

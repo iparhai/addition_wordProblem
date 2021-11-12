@@ -30,7 +30,8 @@ class Quiz extends React.Component {
     problemTemplates: [],
     randomImage: "",
     typingClick: new Audio(typingSound),
-    enableDrop: false
+    enableDrop: false,
+    totalProblems : 1
 
   };
 
@@ -58,6 +59,11 @@ class Quiz extends React.Component {
 
     this.nextProblem();
   };
+  componentDidUpdate(){
+    if(this.state.totalProblems > sessionData.limit){
+      this.props.onEndGame(this.state.points)
+    }
+  }
 
   componentDidMount() {
     this._isMounted = true;
@@ -94,7 +100,8 @@ class Quiz extends React.Component {
       this._isMounted &&
         this.setState({
           modalShowing: false,
-          answer: 0
+          answer: 0,
+          totalProblems : this.state.totalProblems
         });
       if (this.props.lifes > 0) (this.answerInput && this.answerInput.focus());
     }, 2500);
@@ -174,7 +181,7 @@ class Quiz extends React.Component {
 
             <div >
               {/* <Hints currentProblem={this.state.wordProblem}/> */}
-              <div class="thought " style={{ color: "white", width: "85%", marginLeft: "-18%" }} ref={this.wrapperRef} >
+              <div className="thought " style={{ color: "white" }} ref={this.wrapperRef} >
                 <ReactTypingEffect
                   text={this.state.wordProblem}
                   // cursorRenderer={cursor => <h1>{cursor}</h1>}
@@ -183,7 +190,7 @@ class Quiz extends React.Component {
                   eraseDelay={10000000}
                   displayTextRenderer={(text, i) => {
                     return (
-                      <h3>
+                      <h5>
 
                         {text.split('').map((char, i) => {
                           const key = `${i}`;
@@ -198,7 +205,7 @@ class Quiz extends React.Component {
                           );
                         })
                         }
-                      </h3>
+                      </h5>
                     );
                   }}
                   
@@ -252,8 +259,6 @@ class Quiz extends React.Component {
               <div >
                 <Drop incCount={() => { this.setState({ answer: this.state.answer + 1 }) }} decCount={() => { this.setState({ answer: this.state.answer - 1 }) }} count={this.state.answer} img={this.state.randomImage} evaluateProblem={this.evaluateProblem} />
               </div>
-              <button className="btn fourth answerButton" onClick={this.evaluateProblem}> {this.state.answer} </button>
-
             </div>
           )}
         </div>

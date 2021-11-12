@@ -40,9 +40,9 @@ class Timmer extends React.Component {
             this.props.setTimeChanged(this.state.seconds);
         }
 
-        if (this.state.seconds < 0 || this.state.totalProblems > this.state.limit) {
-            this.props.onEndGame(this.props.points);
-        }
+        // if (this.state.seconds < 0 || this.state.totalProblems > this.state.limit) {
+        //     this.props.onEndGame(this.props.points);
+        // }
     }
 
     componentWillUnmount() {
@@ -57,7 +57,6 @@ class Timmer extends React.Component {
             </span>
         )
     }
-
     timeTaken() {
         return 20 - this.state.seconds
     }

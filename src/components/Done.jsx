@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types'
+import sessionData from "../utils/sessionData";
 
 const style = {
   buttonRetry: {
@@ -36,9 +37,9 @@ class Done extends React.Component {
           FINAL SCORE <b style={poinstStyle}>{this.props.points}</b>
         </h3>
         <br />
-        <h3 style={buttonRetry} onClick={this.props.retryGame}>
+        {sessionData.type == 'c' ? <h3 style={buttonRetry} onClick={this.props.retryGame}>
           RETRY
-        </h3>
+        </h3> : null}
         {/* <h5 style={otherButton} onClick={this.props.onReStartGame}>
           Another player
         </h5> */}

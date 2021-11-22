@@ -101,7 +101,7 @@ class Quiz extends React.Component {
         this.setState({
           modalShowing: false,
           answer: 0,
-          totalProblems : this.state.totalProblems
+          totalProblems : this.state.totalProblems + 1
         });
       if (this.props.lifes > 0) (this.answerInput && this.answerInput.focus());
     }, 2500);

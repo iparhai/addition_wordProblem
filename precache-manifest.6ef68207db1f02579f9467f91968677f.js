@@ -1,19 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "00898d60f407de2cd6c4",
-    "url": "/addition_wordProblem/static/css/main.e0341d60.chunk.css"
+    "revision": "bc8407305046f89eb035",
+    "url": "/addition_wordProblem/static/css/main.ee018504.chunk.css"
   },
   {
-    "revision": "00898d60f407de2cd6c4",
-    "url": "/addition_wordProblem/static/js/main.a4409960.chunk.js"
+    "revision": "bc8407305046f89eb035",
+    "url": "/addition_wordProblem/static/js/main.f9815a3e.chunk.js"
   },
   {
     "revision": "5cd3b820eb9788e5e09b",
     "url": "/addition_wordProblem/static/js/runtime~main.e55ee86e.js"
   },
   {
-    "revision": "720cd9e2478f526a7170",
-    "url": "/addition_wordProblem/static/js/2.4a8da6cc.chunk.js"
+    "revision": "178a9cb4c980488c9230",
+    "url": "/addition_wordProblem/static/js/2.8ba72f5e.chunk.js"
   },
   {
     "revision": "f0aa0efad6746287de4c",
@@ -180,7 +180,7 @@ self.__precacheManifest = [
     "url": "/addition_wordProblem/static/media/mute.f02ac89a.png"
   },
   {
-    "revision": "96f12512d8db2f8074caf00c3f36a5e2",
+    "revision": "47a36434f09fe10e49cfda5ebcd76ee4",
     "url": "/addition_wordProblem/index.html"
   }
 ];
